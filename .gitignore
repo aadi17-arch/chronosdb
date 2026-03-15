@@ -39,3 +39,14 @@
 
 # debug information files
 *.dwo
+cat > .gitignore << 'EOF'
+*.o
+*.db
+chronosdb
+.DS_Store
+*.bin
+build/
+dist/
+.vscode/
+.idea/
+EOF
