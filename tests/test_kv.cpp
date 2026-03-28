@@ -12,7 +12,7 @@ void test_basic_put_get() {
     assert(db.get("age").value() == "20");
 
     std::cout << "Test 1: Basic put & get - PASSED" << std::endl;
-    std::cout<< KVStore::size() << "\n";
+    std::cout<< db.size() << "\n";
 }
 
 // Test 2: Overwrite existing key
