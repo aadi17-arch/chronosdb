@@ -242,4 +242,9 @@ public:
         for (int i = 0; i <= MAX_LEVEL; i++) sentinel->tower_of_pointers[i] = nullptr;
         current_level = 0;
     }
+
+    ~KVStore() {
+        clear();
+        delete sentinel;
+    }
 };
