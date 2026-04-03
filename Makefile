@@ -1,24 +1,18 @@
-cat > Makefile << 'EOF'
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -O2
 TARGET = chronosdb
-SOURCES = src/main.cpp
-HEADERS = src/kv_store.hpp
 
-all: $(TARGET)
+all:
+	$(CXX) $(CXXFLAGS) -o $(TARGET) src/main.cpp
 
-$(TARGET): $(SOURCES) $(HEADERS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SOURCES)
-
-run: $(TARGET)
+run: all
 	./$(TARGET)
 
-clean:
-	rm -f $(TARGET) *.db *.o
+test:
+	$(CXX) $(CXXFLAGS) -o test_runner tests/test_kv.cpp
+	./test_runner
 
-help:
-	@echo "ChronosDB Makefile"
-	@echo "  make all   - Build the project"
-	@echo "  make run   - Build and run"
-	@echo "  make clean - Remove build artifacts"
-EOF
+clean:
+	rm -f $(TARGET) test_runner *.db
+
+.PHONY: all run test clean
