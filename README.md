@@ -1,29 +1,34 @@
 # ChronosDB
 
-> A persistent key-value store in C++ that survives crashes.
+> A persistent key-value store in C++ that survives crashes and provides lightning-fast range queries.
 
 ## 🚀 Features
 
-- **Custom SkipList Storage Engine:** $O(\log n)$ search and insertion.
+- **Custom SkipList Storage Engine:** $O(\log n)$ search, insertion, and deletion efficiency.
+- **Advanced Range Scans:** Fast sorted data retrieval with `scan(start, end)`.
+- **Prefix Support:** Search for key categories using `scan_prefix(prefix)`.
 - **Thread-safe operations** with `std::mutex`.
-- **Binary serialization** for data persistence.
 - **Durability with Write-Ahead Logging (WAL).**
-- **Automatic Log Compaction (Snapshotting)** to keep the system lean.
-- Comprehensive performance and real-world test suites.
+- **Binary serialization** for fast snapshots and recovery.
+- **Memory Safety:** Full destructor and memory management for dynamic SkipNode towers.
 
 ## 📦 Build & Test
 
 ```bash
-# Compile and run the core engine tests
+# 1. Run core storage engine tests (Put, Get, Del, Save, Recovery)
 g++ -std=c++17 -o test_kv tests/test_kv.cpp -I src
 ./test_kv
 
-# Run the Week 2 Real-World Durability Test
+# 2. Run the Week 4 Range Scan & Prefix Search tests
+g++ -std=c++17 -o test_scan tests/test_scan.cpp -I src
+./test_scan
+
+# 3. Run the Week 2 Real-World Durability/Crash Test
 g++ -std=c++17 -o test_week2 tests/test-week-2.cpp -I src
 ./test_week2
 ```
 
-## 📝 Status
+## 📝 Project Timeline
 
 ✅ **Week 1: Core implementation COMPLETED**
 - In-memory storage with `std::unordered_map`
@@ -38,4 +43,9 @@ g++ -std=c++17 -o test_week2 tests/test-week-2.cpp -I src
 - Replaced `std::unordered_map` with a hand-crafted **SkipList**.
 - Implemented **Staircase Search** and **Random Level Generation**.
 - Integrated **WAL** and **Thread Safety** into the custom engine.
-- Verified recovery and persistence with the new SkipList data structure.
+- Proper **Memory Management** with a SkipNode destructor.
+
+✅ **Week 4: Advanced Scans & Range Queries COMPLETED**
+- Implemented **Range Scanning** via Level-0 traversal.
+- Built-in **Prefix Search** for Category lookups.
+- Verified sorted data retrieval with specialized test suites.
