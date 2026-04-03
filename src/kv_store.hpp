@@ -109,6 +109,26 @@ public:
         recover_from_wal();
         wal_out.open(wal_filepath_, std::ios::app | std::ios::binary);
     }
+    std::vector<std::pair<std::string,std::string>> scan(const std::string &start_key, const std::string &end_key){
+      std::lock_guard<std::mutex> lock(mutex_);
+      std::vector<std::pair<std::string,std::string>> results;
+      SkipNode* curr = search(start_key);
+
+      while(curr && curr->key <= end_key){
+        results.emplace_back(curr->key, curr->value);
+        curr = curr->tower_of_pointers[0];
+      }
+      return results;
+
+    }
+    // scan->prefix..
+    std::vector<std::pair<std::string,std::string>> scan_prefix(const std::string &prefix){
+      std::string end_key = prefix;
+      if(!end_key.empty()){
+        end_key.back()++;
+      }
+      return scan(prefix,end_key);
+    }
 
     // get we are using optinal to return value..
     std::optional<std::string> get(const std::string &key){
