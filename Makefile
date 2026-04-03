@@ -12,6 +12,10 @@ test:
 	$(CXX) $(CXXFLAGS) -o test_runner tests/test_kv.cpp
 	./test_runner
 
+test-week-2:
+	$(CXX) $(CXXFLAGS) -o test_runner tests/test-week-2.cpp
+	./test_runner
+
 clean:
 	rm -f $(TARGET) test_runner *.db
 
