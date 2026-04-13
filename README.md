@@ -15,17 +15,11 @@
 ## 📦 Build & Test
 
 ```bash
-# 1. Run core storage engine tests (Put, Get, Del, Save, Recovery)
-g++ -std=c++17 -o test_kv tests/test_kv.cpp -I src
-./test_kv
+# 1. Run core engine tests (KV Logic, Range Scans, Prefix)
+make test
 
-# 2. Run the Week 4 Range Scan & Prefix Search tests
-g++ -std=c++17 -o test_scan tests/test_scan.cpp -I src
-./test_scan
-
-# 3. Run the Week 2 Real-World Durability/Crash Test
-g++ -std=c++17 -o test_week2 tests/test-week-2.cpp -I src
-./test_week2
+# 2. Run the Durability/Crash Recovery Test
+make test-durability
 ```
 
 ## 📝 Project Timeline

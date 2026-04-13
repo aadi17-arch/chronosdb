@@ -8,15 +8,17 @@ all:
 run: all
 	./$(TARGET)
 
+# Runs functional engine tests (KV, Scans, Prefix)
 test:
-	$(CXX) $(CXXFLAGS) -o test_runner tests/test_kv.cpp
-	./test_runner
+	$(CXX) $(CXXFLAGS) -o test_kv_store tests/test_kv_store.cpp
+	./test_kv_store
 
-test-week-2:
-	$(CXX) $(CXXFLAGS) -o test_runner tests/test-week-2.cpp
-	./test_runner
+# Runs durability/crash recovery tests
+test-durability:
+	$(CXX) $(CXXFLAGS) -o test_durability tests/test_durability.cpp
+	./test_durability
 
 clean:
-	rm -f $(TARGET) test_runner *.db
+	rm -f $(TARGET) test_kv_store test_durability *.db *.log
 
 .PHONY: all run test clean
